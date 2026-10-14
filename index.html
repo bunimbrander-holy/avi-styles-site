@@ -1,6 +1,6 @@
 <!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>אבי סטיילס</title><meta name="robots" content="noindex"><meta name="theme-color" content="#14100d"><meta property="og:title" content="אבי סטיילס"><style>body{background:#14100d;color:#e8a33d;font-family:sans-serif;margin:0}</style></head><body><div id="root">טוען...</div><script>
-var P=["17-q00","15-q01","19-q02","23-q03","25-q04","27-q05","33-q06","35-q07","37-q08","43-q09","41-q10","45-q11","47-q12"];
-Promise.all([fetch("21-qcss").then(function(r){return r.text()}),Promise.all(P.map(function(p){return fetch(p).then(function(r){return r.blob()})}))]).then(function(a){
+var P=["4-q00","6-q01","9-q02","17-q03","19-q04","21-q05","2-q06","4-q07","7-q08","9-q09","16-q10","15-q11","19-q12"];
+Promise.all([fetch("2-qcss").then(function(r){return r.text()}),Promise.all(P.map(function(p){return fetch(p).then(function(r){return r.blob()})}))]).then(function(a){
 var s=document.createElement("style");s.textContent=a[0];document.head.appendChild(s);
 return new Blob(a[1]).text()}).then(function(js){var e=document.createElement("script");e.textContent=js;document.body.appendChild(e)});
 </script></body></html>
