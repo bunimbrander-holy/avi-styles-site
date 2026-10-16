@@ -125,6 +125,32 @@ section{padding:70px 40px}section h2{font-size:clamp(38px,6vw,64px);line-height:
 .site .card.quote{min-height:0;height:auto}.site .quote p{flex:0 1 auto}.site .quote footer{border:0;min-height:0;padding-bottom:0}
 @media(min-width:1000px){.site section:has(.quote)>.cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:27px}.site .card.quote{padding:51px 25px 25px}.site .quote p{font-size:18px}}
 
+/* About and contact belong to the same olive studio pinboard. */
+.site section.about,.site section.contact{background:linear-gradient(145deg,#282f22,#191f18);padding:48px 40px 58px}
+.site section.about{position:relative;isolation:isolate;padding-top:48px;padding-bottom:36px}
+.site .about>.camline{display:none}
+.site .about>p{color:#bfcaad;font-size:18px;line-height:1.9;max-width:760px;margin:25px auto 0;text-align:center}
+.site .about>.cards{max-width:1030px;margin:39px auto 8px;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px;padding:0 7px;align-items:start}
+.site .about .card{position:relative;isolation:isolate;min-width:0;padding:30px 24px 25px;border:1px solid #7d8c66;border-radius:3px 22px 3px 3px;background:#303b2a;box-shadow:4px 5px 0 #10170e;transform:rotate(-1deg);text-align:right}
+.site .about .card:nth-child(2){background:#39432e;transform:rotate(1deg);margin-top:9px}
+.site .about .card:nth-child(3){background:#2a3527;transform:rotate(-.6deg)}
+.site .about .card:before{content:"";position:absolute;inset:7px;z-index:-1;border:1px solid #b7c09626;border-radius:1px 15px 1px 1px;pointer-events:none}
+.site .about .card:after{content:"";position:absolute;top:-7px;left:calc(50% - 20px);width:40px;height:13px;background:#a0aa7f88;border:1px solid #b1bc9033;transform:rotate(-6deg);pointer-events:none}
+.site .about .card h4{font:400 23px/1.4 var(--hf);color:#e9ecd8;text-align:right;margin:0 0 12px}
+.site .about .card p{font-size:16px;line-height:1.8;color:#bbc9a7;text-align:right;margin:0}
+.site section.contact{position:relative;isolation:isolate;max-width:850px;margin:30px auto 55px;border:1px solid #899772;border-radius:4px 28px 4px 4px;box-shadow:6px 7px 0 #10170e;transform:rotate(-.6deg);padding:43px 35px 37px}
+.site section.contact:before{content:"";position:absolute;inset:9px;z-index:-1;border:1px solid #b7c09626;border-radius:1px 18px 1px 1px;pointer-events:none}
+.site section.contact:after{content:"";position:absolute;top:-10px;left:calc(50% - 31px);width:62px;height:18px;background:#bd7952bd;border:1px solid #dd997344;transform:rotate(5deg);pointer-events:none}
+.site .contact h2{font-size:45px;margin-top:0;color:#eeefdf}.site .contact h2:after{height:3px;width:55px;background:#99aa79;clip-path:none;border-radius:50%;transform:rotate(-3deg)}
+.site .contact>.lead{color:#bdc9aa;font-size:18px;line-height:1.8;max-width:480px;margin:22px auto 0}
+.site .contact .cta{margin:27px auto 0;gap:14px;max-width:none;display:flex;flex-direction:row;justify-content:center;align-items:center;flex-wrap:wrap}
+.site .contact .btn{background:#b66b49;color:#fff2df;border:1px solid #cf8861;border-radius:3px;box-shadow:3px 3px 0 #11180c;min-height:50px;padding:0 25px;font-size:18px;transform:rotate(1deg)}
+.site .contact .btn.ghost{background:#3c482e;color:#e2e8ce;border-color:#84966a;transform:rotate(-1deg);font-variant-numeric:tabular-nums}
+.site .contact .btn:focus-visible{outline:2px solid #e0b18d;outline-offset:5px}
+@media(max-width:767px){.site section.about{padding:35px 20px 27px}.site section.about h2{font-size:35px}.site .about>p{font-size:16px;line-height:1.85;margin-top:20px;text-align:right}.site .about>.cards{grid-template-columns:1fr;gap:24px;margin-top:33px;padding:0 4px}.site .about .card{padding:25px 23px 22px}.site .about .card:nth-child(2){margin-top:0}.site .about .card h4{font-size:22px;margin-bottom:8px}.site .about .card p{font-size:15px}.site section.contact{width:calc(100% - 48px);margin:25px auto 40px;padding:36px 23px 29px}.site .contact h2{font-size:34px}.site .contact>.lead{font-size:16px;margin-top:20px}.site .contact .cta{flex-direction:column;align-items:stretch;gap:13px;margin-top:25px}.site .contact .btn{font-size:17px;min-height:49px;padding:0 15px;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.site .about .card,.site section.contact,.site .contact .btn{animation:none!important;transition:none!important}}
+@media(min-width:768px){.site section.contact{width:calc(100% - 90px)}}
+
 </style></head><body><div id="root" style="min-height:100vh"></div><script>
 window.__AVI_HERO="10-avinoam-cutout.webp";
 fetch("80-v7acss").then(r=>{if(!r.ok)throw Error("styles");return r.text()}).then(css=>{
