@@ -35,4 +35,4 @@ Once the password is saved: create the sole Ben user through Supabase's admin us
 
 Audit follow-ups before calling Phase 1 complete: recheck RLS/grants/function definitions; change the publish expected-version comparison to `IS DISTINCT FROM` so a null expected version cannot skip the conflict guard; verify a nonowner session is rejected; confirm no gallery photo removal leaves that same photo in the fixed status-story set; test slow/offline/error flows and HEIC support/fallback; verify storage/backup size handling; keep published sample-content warnings.
 
-No payments, booking calendar, paid upgrade, card entry or recurring monitor is authorized. Parent owns the next password-setup follow-up. Backend/public pilot can remain safely at the seeded version while that is pending.
+No payments, booking calendar, paid upgrade, card entry or recurring monitor is authorized. Ben's password-setup reply is the next required input. Backend/public pilot can remain safely at the seeded version while that is pending.
