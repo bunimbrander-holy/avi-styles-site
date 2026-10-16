@@ -87,6 +87,24 @@ section{padding:70px 40px}section h2{font-size:clamp(38px,6vw,64px);line-height:
 @media(max-width:350px){.package-line,.package-line:last-child{padding:23px 19px 16px}.package-line h4{font-size:24px}.package-words{font-size:14px;max-width:100%}.package-amount{font-size:30px}}
 @media(prefers-reduced-motion:reduce){.package-line{transition:none!important;animation:none!important}}
 
+/* Pinned photographs share the same off-register edge as the field notes. */
+.package-scenes{gap:18px;padding:5px 4px 10px;margin-bottom:28px}
+.package-scenes button{overflow:visible;isolation:isolate;border:1px solid #84916e;border-radius:2px;background:#303b2a;padding:4px;transform:rotate(-1.2deg);box-shadow:3px 4px 0 #10170e;transition:transform .2s ease}
+.package-scenes button:nth-child(2){transform:translateY(5px) rotate(1deg)}
+.package-scenes button:nth-child(3){transform:translateY(1px) rotate(-.8deg)}
+.package-scenes button:nth-child(4){transform:translateY(4px) rotate(1.1deg)}
+.package-scenes img{border-radius:1px}
+.package-scenes button:after{inset:4px;background:linear-gradient(transparent 25%,#121c0cde 100%);z-index:0}
+.package-scenes span{bottom:14px;right:16px}
+.package-scenes button:before{content:"";position:absolute;top:-7px;left:42%;width:32px;height:12px;background:#a0aa7f88;border:1px solid #b1bc9033;transform:rotate(-7deg);z-index:3;pointer-events:none}
+.package-scenes button[aria-pressed=true]{border-color:#bbc59b}
+.package-scenes button[aria-pressed=true]:before{top:-7px;left:42%;right:auto;bottom:auto;width:32px;height:12px;background:#bd7952bd;border:1px solid #dd997344;transform:rotate(-7deg);z-index:3}
+.package-scenes button[aria-pressed=true] span:after{content:"";display:block;height:2px;width:48px;background:#c88861;margin-top:6px;transform:rotate(-2deg);border-radius:50%}
+@media(hover:hover){.package-scenes button:hover{transform:translateY(-2px) rotate(0)} }
+@media(max-width:767px){.package-scenes{gap:17px 13px;padding:5px 3px 8px;margin-bottom:29px}.package-scenes button{aspect-ratio:1.65;padding:3px}.package-scenes button:after{inset:3px}.package-scenes span{right:10px;left:7px;bottom:10px;font-size:16px}.package-scenes button:before,.package-scenes button[aria-pressed=true]:before{width:27px;height:10px;top:-6px}.package-scenes button[aria-pressed=true] span:after{margin-top:5px;width:36px}}
+@media(max-width:350px){.package-scenes span{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.package-scenes button{transition:none!important}}
+
 </style></head><body><div id="root" style="min-height:100vh"></div><script>
 window.__AVI_HERO="10-avinoam-cutout.webp";
 fetch("80-v7acss").then(r=>{if(!r.ok)throw Error("styles");return r.text()}).then(css=>{
