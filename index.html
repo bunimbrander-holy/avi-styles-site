@@ -105,6 +105,26 @@ section{padding:70px 40px}section h2{font-size:clamp(38px,6vw,64px);line-height:
 @media(max-width:350px){.package-scenes span{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.package-scenes button{transition:none!important}}
 
+/* Client voices on the same olive studio pinboard. */
+.site section:has(.quote){background:linear-gradient(145deg,#282f22,#191f18);padding-top:55px;padding-bottom:65px}
+.site section:has(.quote)>.lead{color:#a7b694;max-width:550px;margin-inline:auto}
+.site section:has(.quote)>.cards{max-width:1030px;margin:47px auto 10px;gap:32px 30px;align-items:start;padding:0 7px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.site .card.quote{--tilt:-1deg;position:relative;isolation:isolate;display:flex;flex-direction:column;gap:21px;margin:0;padding:52px 32px 26px;background:#303b2a;border:1px solid #7d8c66;border-radius:3px 25px 3px 3px;box-shadow:5px 6px 0 #10170e;transform:rotate(var(--tilt))!important;transition:none!important;min-width:0}
+.site .card.quote:nth-child(2n){--tilt:1deg;background:#39432e;margin-top:12px}
+.site .card.quote:nth-child(3n){--tilt:-.6deg;background:#2a3527}
+.site .card.quote:before{content:"";position:absolute;inset:8px;border:1px solid #b7c09626;border-radius:1px 17px 1px 1px;pointer-events:none;z-index:-1;background:top 14px right 17px/37px 25px no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 30' fill='none' stroke='%23acbc8b' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 4l14-1-1 13-7 1-1 10-7-1 2-22zM26 4l14-1-1 13-7 1-1 10-7-1 2-22z'/%3E%3C/svg%3E")}
+.site .card.quote:after{content:"";position:absolute;top:-8px;left:calc(50% - 24px);width:48px;height:16px;background:#a0aa7f88;border:1px solid #b1bc9033;transform:rotate(-6deg);pointer-events:none}
+.site .card.quote:nth-child(2n):after{background:#bd7952b0;border-color:#dd997344;transform:rotate(5deg)}
+.site .quote p{font-size:19px;line-height:1.85;color:#e2e6d1;text-align:right;margin:0;overflow-wrap:anywhere}
+.site .quote footer{position:relative;align-items:flex-start;text-align:right;margin:0;padding-top:15px;gap:3px;font-size:14px;color:#a8b895}
+.site .quote footer:before{content:"";position:absolute;right:0;top:0;width:57px;height:3px;border-top:2px solid #9bab7a;border-radius:50%;transform:rotate(-3deg)}
+.site .quote footer b{font:400 20px var(--hf);color:#eceddb;line-height:1.5}
+@media(max-width:767px){.site section:has(.quote){padding:36px 20px 47px}.site section:has(.quote)>h2{font-size:35px}.site section:has(.quote)>.lead{font-size:14px;line-height:1.7}.site section:has(.quote)>.cards{grid-template-columns:1fr;gap:29px;margin-top:34px;padding:0 4px}.site .card.quote{padding:48px 25px 23px;gap:20px}.site .card.quote:nth-child(2n){margin-top:0}.site .quote p{font-size:17px;line-height:1.85}.site .quote footer b{font-size:19px}.site .quote footer{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.site .card.quote{animation:none!important;transition:none!important}}
+/* A short review stays short; no placeholder-height cards. */
+.site .card.quote{min-height:0;height:auto}.site .quote p{flex:0 1 auto}.site .quote footer{border:0;min-height:0;padding-bottom:0}
+@media(min-width:1000px){.site section:has(.quote)>.cards{grid-template-columns:repeat(3,minmax(0,1fr));gap:27px}.site .card.quote{padding:51px 25px 25px}.site .quote p{font-size:18px}}
+
 </style></head><body><div id="root" style="min-height:100vh"></div><script>
 window.__AVI_HERO="10-avinoam-cutout.webp";
 fetch("80-v7acss").then(r=>{if(!r.ok)throw Error("styles");return r.text()}).then(css=>{
