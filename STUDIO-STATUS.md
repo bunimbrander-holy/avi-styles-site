@@ -13,7 +13,7 @@ This is the current resume record. Read it before the older ADMIN-BUILD.md. Phas
 `studio-build.mjs` is an integrity-checked, dependency-free build/source pack. Run `node studio-build.mjs --extract` for editable files in `studio-source/`. Run `node studio-build.mjs` for deployment output in `dist/`. Do not edit a minified output and forget the source pack. For the next development pass, prefer normal multi-file source commits through a working Git route; preserve this pack as a recovery artifact. Pack regenerated 2026-10-17 twice: first with migration 004 and the corrected seed (photo rows normalized to [source, caption]); then with the real approved package content and the public bundle without the illustrative-draft marker.
 
 ## Backend actually applied
-Isolated Supabase Free project `xbrgftxnnpmfnfekzupb`, no POS data/keys/access. Signup and anonymous sign-in disabled. Seed has 100 photos across 9 categories, 4 package types and 3 explicitly sample reviews. Existing reviews remain draft/sample content. Migrations 001-004 applied. 004 (2026-10-17): `studio_publish` now uses `IS DISTINCT FROM` for the expected-version check so a null expected version cannot skip the conflict guard, and draft+published photo rows were normalized to 2 elements ([source, caption]) because the seed's 3/4-element rows failed the 003 validator and blocked every save.
+Isolated Supabase Free project `xbrgftxnnpmfnfekzupb`, no POS data/keys/access. Signup and anonymous sign-in disabled. Seed has 100 photos across 9 categories, 4 package types and 3 explicitly sample reviews. Existing prices and testimonials remain draft/sample content. Migrations 001-004 applied. 004 (2026-10-17): `studio_publish` now uses `IS DISTINCT FROM` for the expected-version check so a null expected version cannot skip the conflict guard, and draft+published photo rows were normalized to 2 elements ([source, caption]) because the seed's 3/4-element rows failed the 003 validator and blocked every save.
 
 ## Owner account (done 2026-10-17)
 - Sole owner user created via dashboard Add user (email auto-confirmed, no invitation email sent): bunimbrander@gmail.com, UUID 73e599f0-8234-4d49-8eab-b4c49c844f9a, added to `studio_owners`.
@@ -24,7 +24,7 @@ Isolated Supabase Free project `xbrgftxnnpmfnfekzupb`, no POS data/keys/access. 
 ## Real package content loaded (2026-10-17)
 - Ben approved the real package content verbatim. Loaded through the tested app flow: restore into draft, save, preview, publish - no number changed.
 - Live packages now: Family/kids (outdoor, 2h) 700 / 1500 starred (album shown as 800 add-on); Bar mitzvah/events (hall, up to 3h) 1200 / 3200 starred / 4500, with the note that rabbi/social coverage is priced per event via Avinoam; Newborn has no price (talk to Avinoam); Couples album 1700 incl. digital album.
-- The per-package "illustrative draft" marker and the site-wide "prices are illustrative" footer line were removed from the public bundle source; the footer now reads "prices subject to coordination with Avinoam; outdoor and commercial photography per quote". Requires a site redeploy to appear (bundle change).
+- The per-package "illustrative draft" marker and the site-wide "prices are illustrative" footer line were removed from the public bundle source; the footer now reads "prices subject to coordination with Avinoam; commercial photography per quote" (outdoor dropped because outdoor family shoots now have listed prices). Deployed and verified live 2026-10-17.
 - Live ZIP backup download + restore round trip PASSED: downloaded the backup, replaced only the packages section, restored into the draft, saved and published.
 - Sample reviews remain sample content. The old "sample prices" warning now applies only to reviews/testimonials.
 
@@ -42,7 +42,7 @@ Isolated Supabase Free project `xbrgftxnnpmfnfekzupb`, no POS data/keys/access. 
 ## Audit findings resolved 2026-10-17
 - Publish null-version guard fixed (004).
 - Seed vs validator mismatch fixed (data normalized; seed-content.json corrected in the pack).
-- Fixed-photo audit: the only hardcoded photo outside managed content is photo-076, Avi's brand avatar used in the header ring/about/footer; it is not a gallery photo, so gallery removals cannot orphan it. The gallery, photo-sheet menu and story strip all render from published content. Note: the bundled fallback content (used only if the backend is unreachable) keeps the original photos until the next site rebuild - documented limitation.
+- Fixed-photo audit: the only hardcoded photo outside managed content is photo-076, Avi's brand avatar used in the header ring/about/footer; it is not a gallery photo, so gallery removals cannot orphan it. The gallery, photo-sheet menu and story strip all render from published content. Note: the bundled fallback content (used only if the backend is unreachable) was refreshed 2026-10-17 so its packages match the approved real content; its photos remain the original set until the next full site rebuild.
 
 ## Still open before Phase 1 can be called complete
 - Live history-restore round trip (load an old version into the draft) - not yet run authenticated.
