@@ -1,38 +1,54 @@
-# Studio pilot status - 2026-10-16
+# Studio pilot status - 2026-10-17
 
 This is the current resume record. Read it before the older ADMIN-BUILD.md. Phase 1 is in progress, not complete.
 
 ## Live milestone
 - Public content-connected pilot: https://avinoam-studio-pilot.pages.dev/
 - Owner manager login: https://avinoam-studio-pilot.pages.dev/studio-admin.html
-- Code release: e473d384a6cc36d93f5d20935fd7bfaaf8a08e02
+- Code release: e473d384a6cc36d93f5d20935fd7bfaaf8a08e02 (plus 2026-10-17 pack update below)
 - The original GitHub Pages public site is unchanged. Do not promise that admin changes reach that older URL.
 - Cloudflare Free Pages: build `node studio-build.mjs`, output `dist`.
 
 ## Editable source and rebuild
-`studio-build.mjs` is an integrity-checked, dependency-free build/source pack. This format was used because GitHub multi-file upload failed with HTTP 400, while its normal file editor worked. The committed build file was fetched and compared byte-for-byte with the locally tested file.
-
-Run `node studio-build.mjs --extract` for editable files in `studio-source/`: admin source/bundle/CSS/PWA, public adapter/source/styles, all SQL migrations, content seed and initial build notes. Run `node studio-build.mjs` for deployment output in `dist/`. The original portfolio stays in the repo and is copied to the output. Do not edit a minified output and forget the source pack. For the next development pass, prefer normal multi-file source commits through a working Git route and a standard bundle build; preserve this pack as a recovery artifact.
+`studio-build.mjs` is an integrity-checked, dependency-free build/source pack. Run `node studio-build.mjs --extract` for editable files in `studio-source/`. Run `node studio-build.mjs` for deployment output in `dist/`. Do not edit a minified output and forget the source pack. For the next development pass, prefer normal multi-file source commits through a working Git route; preserve this pack as a recovery artifact. Pack regenerated 2026-10-17 twice: first with migration 004 and the corrected seed (photo rows normalized to [source, caption]); then with the real approved package content and the public bundle without the illustrative-draft marker.
 
 ## Backend actually applied
-Isolated Supabase Free project `xbrgftxnnpmfnfekzupb`, no POS data/keys/access. Signup and anonymous sign-in disabled. Initial seed has all 100 photos across 9 categories, 4 package types and 3 explicitly sample reviews. The three text fields are connected. Existing prices and testimonials remain draft/sample content.
+Isolated Supabase Free project `xbrgftxnnpmfnfekzupb`, no POS data/keys/access. Signup and anonymous sign-in disabled. Seed has 100 photos across 9 categories, 4 package types and 3 explicitly sample reviews. Existing reviews remain draft/sample content. Migrations 001-004 applied. 004 (2026-10-17): `studio_publish` now uses `IS DISTINCT FROM` for the expected-version check so a null expected version cannot skip the conflict guard, and draft+published photo rows were normalized to 2 elements ([source, caption]) because the seed's 3/4-element rows failed the 003 validator and blocked every save.
 
-Migrations 001, 002 and 003 in the source pack were applied. 002 makes both storage buckets private and grants anonymous read/signing only for assets referenced in the currently published document. Images copied during Publish are not anonymously readable before the content transaction. Existing signed URLs can remain usable for up to one hour, like a cache. Anonymous readers never see drafts/history/owner records. Owner draft/media access requires an allowlist row and authenticator assurance level `aal2`.
+## Owner account (done 2026-10-17)
+- Sole owner user created via dashboard Add user (email auto-confirmed, no invitation email sent): bunimbrander@gmail.com, UUID 73e599f0-8234-4d49-8eab-b4c49c844f9a, added to `studio_owners`.
+- Password lives only in Ben's vault entry "Avinoam Studio admin (Ben)". Never put it in chat, issues, commits or URLs.
+- TOTP authenticator enrolled and verified at aal2 through the app's own setup screen; the setup key is stored in the same vault entry. A fresh sign-in (new browser tab) using vault-filled password + authenticator code was tested end to end.
+- Avinoam has no login. Add him only after Ben says so. A temporary non-owner test user was created for rejection tests and deleted afterwards.
 
-## Tested
-- Live anonymous public read: 200.
-- Live anonymous draft/history/owner reads and save/publish/owner-check RPCs: 401.
-- Live anonymous signing of an unpublished/missing asset: no signed URL returned.
-- Live manager login page, public hero, 9-category gallery, PWA manifest, active service worker: inspected. No page JS errors.
-- Local editor fixture at 320, 390, 768 and 1440px: six pages, no horizontal overflow/JS errors. Change tracking and category reorder pass.
-- Client image test: 4000x3000 JPEG reencoded to 1920x1440 WebP; no EXIF/XMP in output.
-- Local editor screenshots are fixture-based UI evidence, not authenticated live owner tests.
+## Real package content loaded (2026-10-17)
+- Ben approved the real package content verbatim. Loaded through the tested app flow: restore into draft, save, preview, publish - no number changed.
+- Live packages now: Family/kids (outdoor, 2h) 700 / 1500 starred (album shown as 800 add-on); Bar mitzvah/events (hall, up to 3h) 1200 / 3200 starred / 4500, with the note that rabbi/social coverage is priced per event via Avinoam; Newborn has no price (talk to Avinoam); Couples album 1700 incl. digital album.
+- The per-package "illustrative draft" marker and the site-wide "prices are illustrative" footer line were removed from the public bundle source; the footer now reads "prices subject to coordination with Avinoam; outdoor and commercial photography per quote". Requires a site redeploy to appear (bundle change).
+- Live ZIP backup download + restore round trip PASSED: downloaded the backup, replaced only the packages section, restored into the draft, saved and published.
+- Sample reviews remain sample content. The old "sample prices" warning now applies only to reviews/testimonials.
 
-## Pending, important
-No owner account has been created yet. Ben has been sent a secure request to choose a NEW unique app password; do not put any password in chat or this repo. Only Ben initially. Add Avinoam only after Ben says so. Do not send an unreviewed invitation email.
+## Tested live, authenticated (2026-10-17)
+- Owner sign-in + MFA challenge + draft load (read) at aal2.
+- Save draft (caption edit; also with an `asset://` upload present) - server validation passes.
+- Upload from file picker: JPEG/WebP resize to 1920px WebP and upload to private `studio-drafts`. (Cloud-browser file staging broke async reads with "source image cannot be decoded"; the same file through the app's real handler with stable bytes passes. Retest once on Ben's phone.)
+- Preview handshake: save-then-preview posts STUDIO_PREVIEW_DATA to the iframe; Publish stays disabled until the preview acks the current version.
+- Publish: confirm dialog, images copied to `studio-public`, published row replaced; success message shown.
+- Anonymous checks: published content 200; draft/history/owners/save/publish 401; published image signs and downloads; unpublished/missing image returns no signed URL; direct public-object URL on the private bucket returns 400.
+- Concurrent sessions: two signed-in tabs; first tab's save after the second tab saved fails with "Draft changed in another session. Reload before saving." and keeps its edits unsaved.
+- Non-owner rejection: a fresh non-allowlisted user gets owner_check=false, empty draft read via RLS, "Not authorized" from save RPC, and no draft-media signing.
+- Draft and published content re-verified clean after tests (100 photos, original captions).
 
-Once the password is saved: create the sole Ben user through Supabase's admin user UI, mark email confirmed without sending an invite, add only that user's UUID to `studio_owners`, sign into the live manager, enroll and verify authenticator safely. Never change his Google/dashboard password. Test live owner read/save/upload, private draft media, preview handshake, explicit publish, anonymous post-publish image signing, concurrent-save conflict, history restore and ZIP backup/restore. Test actual phone add-to-home-screen if available; manifest/worker checks alone do not prove device installation.
+## Audit findings resolved 2026-10-17
+- Publish null-version guard fixed (004).
+- Seed vs validator mismatch fixed (data normalized; seed-content.json corrected in the pack).
+- Fixed-photo audit: the only hardcoded photo outside managed content is photo-076, Avi's brand avatar used in the header ring/about/footer; it is not a gallery photo, so gallery removals cannot orphan it. The gallery, photo-sheet menu and story strip all render from published content. Note: the bundled fallback content (used only if the backend is unreachable) keeps the original photos until the next site rebuild - documented limitation.
 
-Audit follow-ups before calling Phase 1 complete: recheck RLS/grants/function definitions; change the publish expected-version comparison to `IS DISTINCT FROM` so a null expected version cannot skip the conflict guard; verify a nonowner session is rejected; confirm no gallery photo removal leaves that same photo in the fixed status-story set; test slow/offline/error flows and HEIC support/fallback; verify storage/backup size handling; keep published sample-content warnings.
-
-No payments, booking calendar, paid upgrade, card entry or recurring monitor is authorized. Ben's password-setup reply is the next required input. Backend/public pilot can remain safely at the seeded version while that is pending.
+## Still open before Phase 1 can be called complete
+- Live history-restore round trip (load an old version into the draft) - not yet run authenticated.
+- HEIC upload on a real iPhone/browser that cannot decode HEIC (fallback message) and a real large-phone-photo upload.
+- Add-to-home-screen install on Ben's actual phone.
+- Slow/offline/error flows (service worker, backend down -> bundled fallback).
+- Orphan cleanup: one test image (30d88a06-a591-4926-8633-28014d6f8504.webp) remains in `studio-public` from the publish test; it is unreferenced so anonymous signing is denied, but the bytes can be deleted from storage.
+- Sample reviews/testimonials stay until Ben supplies real ones. Package prices are now real and approved.
+- No payments, booking calendar, paid upgrade, card entry or recurring monitor is authorized.
